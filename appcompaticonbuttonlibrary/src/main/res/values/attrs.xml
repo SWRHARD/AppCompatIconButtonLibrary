@@ -12,6 +12,7 @@
             <enum name="left_of_title" value="2" />
             <enum name="right_of_title" value="3" />
         </attr>
+        <attr name="ib_textAllCaps" format="boolean" />
         <attr name="ib_style" format="reference" />
     </declare-styleable>
 

@@ -2,6 +2,7 @@
 <resources>
 
     <style name="AppCompatIconButtonStyle">
+        <item name="ib_textAllCaps">false</item>
         <item name="ib_iconColor">@android:color/white</item>
         <item name="ib_iconSize">@dimen/icon_button_icon_size</item>
         <item name="ib_iconPadding">@dimen/icon_button_icon_padding</item>

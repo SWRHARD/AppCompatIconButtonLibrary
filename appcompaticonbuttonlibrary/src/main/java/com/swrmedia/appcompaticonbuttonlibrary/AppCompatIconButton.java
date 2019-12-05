@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
@@ -26,6 +27,7 @@ public class AppCompatIconButton extends AppCompatButton {
     private Rect srcRect;
     private Rect destRect;
 
+    private boolean textAllCaps;
     @Dimension
     private int iconPadding;
     @Dimension
@@ -44,8 +46,6 @@ public class AppCompatIconButton extends AppCompatButton {
 
     private Align direction;
 
-
-
     public AppCompatIconButton(Context context) {
         this(context, null);
     }
@@ -63,6 +63,8 @@ public class AppCompatIconButton extends AppCompatButton {
     private void applyStyles(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.AppCompatIconButton, defStyleAttr, R.style.AppCompatIconButtonStyle);
+        textAllCaps = typedArray.getBoolean(R.styleable.AppCompatIconButton_ib_textAllCaps,
+                false);
         iconPadding = typedArray.getDimensionPixelSize(
                 R.styleable.AppCompatIconButton_ib_iconPadding, 0);
         iconSize = typedArray.getDimensionPixelSize(
@@ -112,6 +114,9 @@ public class AppCompatIconButton extends AppCompatButton {
             paint = new Paint();
             paint.setColorFilter(new PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP));
             srcRect = new Rect(0, 0, icon.getWidth(), icon.getHeight());
+        }
+        if (textAllCaps) {
+            setText(getText().toString().toUpperCase());
         }
         destRect = new Rect();
     }
