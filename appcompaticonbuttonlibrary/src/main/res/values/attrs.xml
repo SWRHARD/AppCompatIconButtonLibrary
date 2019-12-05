@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AppCompatIconButton">
+        <attr name="ib_iconSrc" format="reference" />
+        <attr name="ib_iconColor" format="color" />
+        <attr name="ib_iconSize" format="dimension" />
+        <attr name="ib_iconPadding" format="dimension" />
+        <attr name="ib_iconAlign" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="left_of_title" value="2" />
+            <enum name="right_of_title" value="3" />
+        </attr>
+        <attr name="ib_style" format="reference" />
+    </declare-styleable>
+
+</resources>
