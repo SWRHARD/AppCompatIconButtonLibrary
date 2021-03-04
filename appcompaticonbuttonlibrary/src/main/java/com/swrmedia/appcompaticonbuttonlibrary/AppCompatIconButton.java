@@ -77,6 +77,35 @@ public class AppCompatIconButton extends AppCompatButton {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int desiredWidth = getPaddingLeft() + getPaddingRight();
+        int desiredHeight = getPaddingTop() + getPaddingBottom();
+
+        int measuredHeight = measureDimension(desiredHeight, heightMeasureSpec);
+        float textWidth = getPaint().measureText((String) getText());
+
+        if (drawableId != 0) {
+            desiredWidth += textWidth + iconSize + iconPadding;
+        }
+        int measuredWidth = measureDimension(desiredWidth, widthMeasureSpec);
+        setMeasuredDimension(measuredWidth, measuredHeight);
+    }
+
+    private int measureDimension(int contentSize, int measureSpec) {
+        int mode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+        switch (mode) {
+            case MeasureSpec.EXACTLY:
+                return specSize;
+            case MeasureSpec.AT_MOST:
+                return Math.min(contentSize, specSize);
+            default:
+                return contentSize;
+        }
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
         int dx = (iconSize + iconPadding) / 2;
@@ -88,13 +117,13 @@ public class AppCompatIconButton extends AppCompatButton {
 
         if (icon != null) {
             float textWidth = getPaint().measureText((String) getText());
-            int left = 0;
+            int left = iconPadding;
             if (direction == Align.left_of_text) {
                 left = (int) ((getWidth() / 2f) - (textWidth / 2f) - iconSize - iconPadding);
             } else if (direction == Align.right_of_text) {
                 left = (int) ((getWidth() / 2f) + (textWidth / 2f) + dx + iconPadding);
             } else if (direction == Align.right) {
-                left = getWidth() - iconSize;
+                left = getWidth() - iconSize - iconPadding;
             }
             int top = getHeight() / 2 - iconSize / 2;
 
